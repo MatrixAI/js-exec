@@ -1,15 +1,9 @@
 # js-quic
 
-staging: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-quic/badges/staging/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-quic/commits/staging)
-master: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-quic/badges/master/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-quic/commits/master)
+staging: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/staging/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/staging)
+master: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/master/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/master)
 
-QUIC library for TypeScript/JavaScript applications.
-
-This is built on top of Cloudflare's [quiche](https://github.com/cloudflare/quiche) library. It is intended to support Linux, Windows MacOS, Android and iOS. Mobile support is still pending.
-
-Since Cloudflare's quiche is written in Rust. This uses the [napi-rs](https://github.com/napi-rs/napi-rs) binding system compile the native objects for Node.js.
-
-This library focuses only on the QUIC protocol. It does not support HTTP3. You can build HTTP3 on top of this.
+This is a simple native binding for running execpv
 
 ## Installation
 

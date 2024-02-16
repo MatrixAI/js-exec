@@ -8,6 +8,7 @@ import path from 'path';
 
 interface Exec {
   test(): boolean;
+  test2(): number;
 }
 
 const projectRoot = path.join(__dirname, '../../');

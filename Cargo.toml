@@ -1,7 +1,7 @@
 [package]
-name = "quic"
+name = "exec"
 version = "0.0.1"
-authors = ["Roger Qiu <roger.qiu@polyhack.io>"]
+authors = ["Brian Botha <brian.botha@matrix.ai>"]
 license-file = "LICENSE"
 edition = "2021"
 exclude = ["index.node"]
@@ -13,6 +13,7 @@ path = "src/native/napi/lib.rs"
 [dependencies]
 napi = { version = "2", features = ["async", "napi6", "serde-json"] }
 napi-derive = { version = "2", default-features = false, features = ["strict", "compat-mode"] }
+uapi = "0.2.10"
 
 [build-dependencies]
 napi-build = "2"
