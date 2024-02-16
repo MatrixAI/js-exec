@@ -1,0 +1,18 @@
+[package]
+name = "quic"
+version = "0.0.1"
+authors = ["Roger Qiu <roger.qiu@polyhack.io>"]
+license-file = "LICENSE"
+edition = "2021"
+exclude = ["index.node"]
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/native/napi/lib.rs"
+
+[dependencies]
+napi = { version = "2", features = ["async", "napi6", "serde-json"] }
+napi-derive = { version = "2", default-features = false, features = ["strict", "compat-mode"] }
+
+[build-dependencies]
+napi-build = "2"
