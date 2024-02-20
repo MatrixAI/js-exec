@@ -50,7 +50,7 @@ check:lint:
   needs: []
   script:
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm run lint;
       npm run lint-shell;
       '
@@ -68,7 +68,7 @@ check:test:
   needs: []
   script:
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm run prebuild --verbose;
       npm test -- --ci --coverage;
       '
@@ -96,7 +96,7 @@ build:merge:
     # Required for `gh pr create`
     - git remote add upstream "$GH_PROJECT_URL"
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       gh pr create \
         --head staging \
         --base master \
@@ -121,7 +121,7 @@ build:dist:
   needs: []
   script:
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm run build --ignore-scripts --verbose;
       '
   artifacts:
@@ -143,7 +143,7 @@ build:linux:
     RUST_BACKTRACE: "1"
   script:
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm run prebuild --verbose -- --production;
       npm test -- --ci --coverage;
       npm run bench;
@@ -261,7 +261,7 @@ build:prerelease:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
     - echo 'Publishing library prerelease'
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm publish --tag prerelease --access public;
       '
     - >
@@ -274,7 +274,7 @@ build:prerelease:
           "$(basename $d)";
       done
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       gh release \
         create "$CI_COMMIT_TAG" \
         prebuild/*.tar \
@@ -313,7 +313,7 @@ integration:merge:
     GIT_DEPTH: 0
   script:
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       printf "Pipeline Succeeded on ${CI_PIPELINE_ID} for ${CI_COMMIT_SHA}\n\n${CI_PIPELINE_URL}" \
       | gh pr comment staging \
         --body-file - \
@@ -344,7 +344,7 @@ release:distribution:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
     - echo 'Publishing library'
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       npm publish --access public;
       '
     - >
@@ -357,7 +357,7 @@ release:distribution:
           "$(basename $d)";
       done
     - >
-      nix-shell --arg ci true --run $'
+      nix develop .#ci --command bash -c $'
       gh release \
         create "$CI_COMMIT_TAG" \
         prebuild/*.tar \
