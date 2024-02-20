@@ -7,8 +7,8 @@ import process from 'process';
 import path from 'path';
 
 interface Exec {
-  test(): boolean;
-  test2(): number;
+  test(tings: Array<string>): undefined;
+  execvpe(cmd: string, argv: Array<string>): undefined;
 }
 
 const projectRoot = path.join(__dirname, '../../');

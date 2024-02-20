@@ -1,72 +1,55 @@
 extern crate core;
 
 use napi_derive::napi;
+use napi::bindgen_prelude::{
+  Array,
+};
 use uapi;
 
-#[napi]
-pub fn test() -> bool {
-  println!("Hello!");
-  true
+fn set_fd_cloexec() -> uapi::Result<()> {
+  for descriptor in 0..3 {
+    // Clear the FD_CLOEXEC bit for all STDIO
+    let mut flags = uapi::fcntl_getfd(descriptor)?;
+    flags &= !uapi::c::FD_CLOEXEC;
+    uapi::fcntl_setfd(descriptor, flags)?;
+  }
+  Ok(())
 }
 
-#[napi]
-pub fn test2() -> u32 {
-  // println!("Hello!");
-
-
-  // Before making the call we need to configure the STD
-  for descriptor in 0..3 {
-    // println!("setting descriptor {:?}", descriptor);
-
-    let mut flags = match uapi::fcntl_getfd(descriptor) {
-      Err(why) => {
-        // println!("why failed get fd with {:?}", why);
-        panic!("Failed to call fcntl_getfd");
-      }
-      Ok(flags) => {
-        if flags < 0 {
-          // println!("Invalid flags");
-          panic!("Invalid flags");
-        }
-        flags
-      },
-    };
-
-    // clear FD_CLOEXEC bit
-    flags &= !uapi::c::FD_CLOEXEC;
-
-    match uapi::fcntl_setfd(descriptor, flags) {
-      Err(why) => {
-        // println!("we failed set fd with {:?}", why);
-        panic!("Failed to call fcntl_setfd");
-      }
-      Ok(code) => {
-        // println!("set ok with {:?}", code);
-        code
-      }
-    }
+#[napi(ts_args_type="things: Array<string>")]
+pub fn test(things: Array) -> () {
+  match things.get::<String>(0) {
+    Ok(Some(thing)) => println!("thinggy {:?}", thing),
+    _ => println!("failed"),
   }
+}
 
-  let mut argv = uapi::UstrPtr::new();
-  let cmd = "ll";
-  argv.push(cmd);
-  // argv.push("IWAZHERE");
+#[napi(ts_args_type="cmd: string, argv: Array<string>")]
+pub fn execvpe(cmd: String, argv: Array) -> napi::Result<()> {
+  // Before making the call we need to configure the stdio. This ensures we get the output of the exec'ed program.
+  set_fd_cloexec().or_else(
+    |e| Err(napi::Error::from_reason(e.to_string()))
+  )?;
+
+  let mut argv_ = uapi::UstrPtr::new();
+  argv_.push(cmd.clone());
+  for i in 0..argv.len() {
+    match argv.get::<String>(i) {
+      Ok(Some(value)) => {
+        argv_.push(value);
+        Ok(())
+      },
+      Err(e) => Err(napi::Error::from_reason(e.to_string())),
+      _ => Ok(()),
+    }?;
+  }
   let envv = uapi::UstrPtr::new();
-  // println!("running!");
 
-  match uapi::execvpe(
+  uapi::execvpe(
     cmd,
-    &argv,
+    &argv_,
     &envv,
-  ) {
-    Err(why) => {
-      // println!("we failed! {:?}", why);
-      panic!("Failed to call execvpe");
-    },
-    Ok(_) => {
-      // println!("SUCC");
-      42
-    },
-  };
-  671
+  ).or_else(
+    |e| Err(napi::Error::from_reason(e.to_string()))
+  )
 }
