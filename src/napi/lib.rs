@@ -16,21 +16,14 @@ fn set_fd_cloexec() -> uapi::Result<()> {
   Ok(())
 }
 
-#[napi(ts_args_type="things: Array<string>")]
-pub fn test(things: Array) -> () {
-  match things.get::<String>(0) {
-    Ok(Some(thing)) => println!("thinggy {:?}", thing),
-    _ => println!("failed"),
-  }
-}
-
-#[napi(ts_args_type="cmd: string, argv: Array<string>")]
-pub fn execvpe(cmd: String, argv: Array) -> napi::Result<()> {
+#[napi(ts_args_type="cmd: string, argv: Array<string>, envp: Array<string>")]
+pub fn execvpe(cmd: String, argv: Array, envp: Array) -> napi::Result<()> {
   // Before making the call we need to configure the stdio. This ensures we get the output of the exec'ed program.
   set_fd_cloexec().or_else(
     |e| Err(napi::Error::from_reason(e.to_string()))
   )?;
 
+  // Setting up the arg parameters
   let mut argv_ = uapi::UstrPtr::new();
   argv_.push(cmd.clone());
   for i in 0..argv.len() {
@@ -43,12 +36,24 @@ pub fn execvpe(cmd: String, argv: Array) -> napi::Result<()> {
       _ => Ok(()),
     }?;
   }
-  let envv = uapi::UstrPtr::new();
+
+  // Setting up the env parameters
+  let mut envp_ = uapi::UstrPtr::new();
+  for i in 0..envp.len() {
+    match envp.get::<String>(i) {
+      Ok(Some(value)) => {
+        envp_.push(value);
+        Ok(())
+      },
+      Err(e) => Err(napi::Error::from_reason(e.to_string())),
+      _ => Ok(()),
+    }?;
+  }
 
   uapi::execvpe(
     cmd,
     &argv_,
-    &envv,
+    &envp_,
   ).or_else(
     |e| Err(napi::Error::from_reason(e.to_string()))
   )

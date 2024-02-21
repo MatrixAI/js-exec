@@ -26,8 +26,8 @@
     "prepublishOnly": "node ./scripts/prepublishOnly.js",
     "ts-node": "ts-node",
     "test": "jest",
-    "lint": "eslint '{src,tests,scripts}/**/*.{js,ts,json}' 'benches/**/*.{js,ts}'",
-    "lintfix": "eslint '{src,tests,scripts}/**/*.{js,ts,json}' 'benches/**/*.{js,ts}' --fix",
+    "lint": "eslint '{src,tests,scripts}/**/*.{js,ts,json}'",
+    "lintfix": "eslint '{src,tests,scripts}/**/*.{js,ts,json}' --fix",
     "lint-shell": "find ./src ./tests ./scripts -type f -regextype posix-extended -regex '.*\\.(sh)' -exec shellcheck {} +",
     "docs": "shx rm -rf ./docs && typedoc --gitRevision master --tsconfig ./tsconfig.build.json --out ./docs src"
   },

@@ -1,5 +1,5 @@
 /**
- * JS binding to NAPI quiche dynamic library.
+ * JS binding to NAPI uapi.
  * This code was derived from the auto-generated binding and declaration
  * files provided by napi-rs.
  */
@@ -7,11 +7,10 @@ import process from 'process';
 import path from 'path';
 
 interface Exec {
-  test(tings: Array<string>): undefined;
-  execvpe(cmd: string, argv: Array<string>): undefined;
+  execvpe(cmd: string, argv: Array<string>, envv: Array<string>): undefined;
 }
 
-const projectRoot = path.join(__dirname, '../../');
+const projectRoot = path.join(__dirname, '../');
 const prebuildPath = path.join(projectRoot, 'prebuild');
 
 /**
@@ -47,25 +46,10 @@ function requireBinding(targets: Array<string>): Exec {
 let nativeBinding: Exec;
 
 /**
- * For desktop we only support win32, darwin and linux.
+ * For desktop we only support darwin and linux.
  * Mobile OS support is pending.
  */
 switch (process.platform) {
-  case 'win32':
-    switch (process.arch) {
-      case 'x64':
-        nativeBinding = requireBinding(['win32-x64']);
-        break;
-      case 'ia32':
-        nativeBinding = requireBinding(['win32-ia32']);
-        break;
-      case 'arm64':
-        nativeBinding = requireBinding(['win32-arm64']);
-        break;
-      default:
-        throw new Error(`Unsupported architecture on Windows: ${process.arch}`);
-    }
-    break;
   case 'darwin':
     switch (process.arch) {
       case 'x64':
