@@ -1,19 +1,17 @@
-# js-quic
+# js-exec
 
 staging: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/staging/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/staging)
 master: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/master/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/master)
 
-This is a simple native binding for running execpv
+This exposes `execvp` to Node.js. This allows running a child process that replaces the parent process image. This is not possible on Windows, if you run this on Windows, expect an exception!
 
 ## Installation
 
 ```sh
-npm install --save @matrixai/quic
+npm install --save @matrixai/exec
 ```
 
 ## Usage
-
-See the example executables in `/src/bin`.
 
 ## Development
 
@@ -55,21 +53,13 @@ x86_64-apple-darwin
 
 The available target list is in `rustc --print target-list`.
 
-## Benchmarks
-
-```sh
-npm run bench
-```
-
-View benchmarks here: https://github.com/MatrixAI/js-quic/blob/master/benches/results with https://raw.githack.com/
-
 ### Docs Generation
 
 ```sh
 npm run docs
 ```
 
-See the docs at: https://matrixai.github.io/js-quic/
+See the docs at: https://matrixai.github.io/js-exec/
 
 ### Publishing
 
