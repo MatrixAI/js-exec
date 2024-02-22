@@ -37,7 +37,7 @@ async function main() {
   await fs.promises.writeFile(cargoTOMLPath, cargoTOMLUpdated, 'utf-8');
 
   console.error('Updating the Cargo.lock version to match new version');
-  childProcess.execFileSync('cargo', ['update', '--package', 'quic'], {
+  childProcess.execFileSync('cargo', ['update', '--package', 'exec'], {
     stdio: ['inherit', 'inherit', 'inherit'],
     windowsHide: true,
     encoding: 'utf-8',
