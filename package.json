@@ -1,6 +1,6 @@
 {
   "name": "@matrixai/exec",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Matrix AI",
   "contributors": [
     {
@@ -31,11 +31,10 @@
     "lint-shell": "find ./src ./tests ./scripts -type f -regextype posix-extended -regex '.*\\.(sh)' -exec shellcheck {} +",
     "docs": "shx rm -rf ./docs && typedoc --gitRevision master --tsconfig ./tsconfig.build.json --out ./docs src"
   },
-  "dependencies": {},
   "optionalDependencies": {
-    "@matrixai/exec-darwin-arm64": "0.1.0",
-    "@matrixai/exec-darwin-x64": "0.1.0",
-    "@matrixai/exec-linux-x64": "0.1.0"
+    "@matrixai/exec-darwin-arm64": "0.1.1",
+    "@matrixai/exec-darwin-x64": "0.1.1",
+    "@matrixai/exec-linux-x64": "0.1.1"
   },
   "devDependencies": {
     "@fast-check/jest": "^1.1.0",
