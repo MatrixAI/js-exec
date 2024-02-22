@@ -43,7 +43,7 @@ function requireBinding(targets: Array<string>): Exec {
       if (e.code !== 'MODULE_NOT_FOUND') throw e;
     }
   }
-  const npmTargets = targets.map((target) => `@matrixai/quic-${target}`);
+  const npmTargets = targets.map((target) => `@matrixai/exec-${target}`);
   for (const npmTarget of npmTargets) {
     try {
       return require(npmTarget);

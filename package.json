@@ -32,6 +32,11 @@
     "docs": "shx rm -rf ./docs && typedoc --gitRevision master --tsconfig ./tsconfig.build.json --out ./docs src"
   },
   "dependencies": {},
+  "optionalDependencies": {
+    "@matrixai/exec-darwin-arm64": "0.1.0",
+    "@matrixai/exec-darwin-x64": "0.1.0",
+    "@matrixai/exec-linux-x64": "0.1.0"
+  },
   "devDependencies": {
     "@fast-check/jest": "^1.1.0",
     "@napi-rs/cli": "^2.15.2",
