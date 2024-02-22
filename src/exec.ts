@@ -8,22 +8,21 @@ import path from 'path';
 
 interface Exec {
   /**
-   * This calls the provided command with the provided arguments. The env variable are also provided in the format of
-   * 'key=value'. If the call fails in any way then it just throws the error code 'Error('number')`. The most common
-   * would be an `ENOENT` in the form of `Error('2')`.
+   * This calls the provided command with the provided arguments. The env variable are also provided as a
+   * `Record<string, string>`. If the call fails in any way then it just throws the error code 'Error('number')`.
+   * The most common would be an `ENOENT` in the form of `Error('2')`.
    *
    * This will replace the current process with the provided cmd. From the callers perspective this will seem really odd
    * and never return. The call can not return so and code after it is unreachable, hence the `never` return type. So
    * treat this function as a termination of the process, much like a `process.exit()` call.
    *
-   * The exec'ed program will not assume the environment of the current process. This can allow isolation but if you
-   * want to have the current environment then you'll have to pass it in manually through the envp parameter.
+   * The exec'ed program will assume the current environment while adding the environment variables set by `env` to it.
    *
    * @param cmd - the command to call, this can be anything in the PATH or a specific file
    * @param argv - The args to be passed to the command
-   * @param envp - env variables that you want to provide. These are formatted as an array of 'key=value'
+   * @param envp - env variables that you want to provide.
    */
-  execvpe(cmd: string, argv: Array<string>, envp: Array<string>): never;
+  execvp(cmd: string, argv: Array<string>, envp: Record<string, string>): never;
 }
 
 const projectRoot = path.join(__dirname, '../');

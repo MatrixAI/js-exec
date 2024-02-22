@@ -4,5 +4,8 @@ import { exec } from '@';
 // This executes `printEnv.js` while setting environment variables
 // eslint-disable-next-line no-console
 console.log(
-  exec.execvpe('node', ['./tests/printEnv.js'], ['test=asd', 'best=bsd']),
+  exec.execvp('node', ['./tests/printEnv.js'], {
+    TEST1: 'value1',
+    TEST2: 'value2',
+  }),
 );
