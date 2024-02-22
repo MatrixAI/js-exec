@@ -1,6 +1,6 @@
 {
   "name": "@matrixai/exec",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Matrix AI",
   "contributors": [
     {
@@ -31,8 +31,7 @@
     "lint-shell": "find ./src ./tests ./scripts -type f -regextype posix-extended -regex '.*\\.(sh)' -exec shellcheck {} +",
     "docs": "shx rm -rf ./docs && typedoc --gitRevision master --tsconfig ./tsconfig.build.json --out ./docs src"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@fast-check/jest": "^1.1.0",
     "@napi-rs/cli": "^2.15.2",
