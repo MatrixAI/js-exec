@@ -45,7 +45,7 @@ pub fn execvp(cmd: String, argv: Array, envp: Object) -> napi::Result<()> {
   for key in keys.iter() {
     let value = match envp.get::<String, String>(key.clone()) {
       Ok(Some(value)) => Ok(value),
-      Ok(None) => panic!("asd"),
+      Ok(None) => continue,
       Err(e) => Err(e),
     }.or_else(
       |e| Err(napi::Error::from_reason(e.to_string()))

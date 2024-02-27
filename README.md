@@ -13,6 +13,25 @@ npm install --save @matrixai/exec
 
 ## Usage
 
+exec can be used in the following way.
+
+```ts
+import { exec } from '@matrixai/exec';
+// This should output the current enviroment while adding `test_env` to it.
+exec.execvp(
+  'node',
+  [
+    '-e',
+    'console.log(process.env)',
+  ],
+  {
+    test_env: 'this value'
+  },
+);
+```
+
+Note that only linux and mac platforms are supported.
+
 ## Development
 
 Run `nix develop`, and once you're inside, you can use:
