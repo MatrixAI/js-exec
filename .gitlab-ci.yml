@@ -185,6 +185,9 @@ build:macos:
     # Build x64 and arm64 separately
     - npm run prebuild --verbose -- --arch x64 --production
     - npm run prebuild --verbose -- --arch arm64 --production
+    - lipo -create -output prebuild/exec-darwin-x64+arm64.node prebuild/exec-darwin-arm64.node prebuild/exec-darwin-x64.node
+    # Force remove any downloaded native bindings, so we only test with our builds
+    - rm -rf node_modules/@matrixai/exec-*
     - npm test -- --ci --coverage
   artifacts:
     when: always
