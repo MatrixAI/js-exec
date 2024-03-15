@@ -34,6 +34,7 @@
   "optionalDependencies": {
     "@matrixai/exec-darwin-arm64": "0.1.2",
     "@matrixai/exec-darwin-x64": "0.1.2",
+    "@matrixai/exec-darwin-universal": "0.1.2",
     "@matrixai/exec-linux-x64": "0.1.2"
   },
   "devDependencies": {
