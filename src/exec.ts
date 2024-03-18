@@ -72,6 +72,7 @@ switch (process.platform) {
           'darwin-x64',
           'darwin-x64+arm64',
           'darwin-arm64+x64',
+          'darwin-universal',
         ]);
         break;
       case 'arm64':
@@ -79,6 +80,7 @@ switch (process.platform) {
           'darwin-arm64',
           'darwin-arm64+x64',
           'darwin-x64+arm64',
+          'darwin-universal',
         ]);
         break;
       default:
