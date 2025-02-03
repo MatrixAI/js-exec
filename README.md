@@ -1,8 +1,5 @@
 # js-exec
 
-staging: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/staging/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/staging)
-master: [![pipeline status](https://gitlab.com/MatrixAI/open-source/js-exec/badges/master/pipeline.svg)](https://gitlab.com/MatrixAI/open-source/js-exec/commits/master)
-
 This exposes `execvp` to Node.js. This allows running a child process that replaces the parent process image. This is not possible on Windows, if you run this on Windows, expect an exception!
 
 ## Installation
