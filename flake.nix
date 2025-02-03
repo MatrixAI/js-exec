@@ -3,8 +3,6 @@
     nixpkgs-matrix = {
       type = "indirect";
       id = "nixpkgs-matrix";
-      inputs.nixpkgs.url =
-        "github:NixOS/nixpkgs?rev=ea5234e7073d5f44728c499192544a84244bf35a";
     };
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -31,7 +29,7 @@
             shellHook = ''
               echo "Entering $(npm pkg get name)"
               set -o allexport
-              . ./.env
+              . <(pk secrets env js-exec)
               set +o allexport
               set -v
               ${lib.optionalString ci ''
