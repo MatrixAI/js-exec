@@ -31,9 +31,9 @@ if ( -not (Test-Path -Path "${PSScriptRoot}\..\tmp\chocolatey\$nodejs\$nodejs.20
 
 # Install rust v1.68.0 (will use cache if exists)
 $rust = "rust-ms"
-choco install "$rust" --version="1.83.0" --require-checksums -y --no-progress
+choco install "$rust" --version="1.68.0" --require-checksums -y --no-progress
 # Internalise rust to cache if doesn't exist
-if ( -not (Test-Path -Path "${PSScriptRoot}\..\tmp\chocolatey\$rust\$rust.1.83.0.nupkg" -PathType Leaf) ) {
+if ( -not (Test-Path -Path "${PSScriptRoot}\..\tmp\chocolatey\$rust\$rust.1.68.0.nupkg" -PathType Leaf) ) {
   Save-ChocoPackage -PackageName $rust
 }
 
