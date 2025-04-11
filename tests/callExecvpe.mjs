@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 
-import { exec } from '@';
+import { exec } from '#index.js';
 // This executes `printEnv.js` while setting environment variables
 // eslint-disable-next-line no-console
 console.log(

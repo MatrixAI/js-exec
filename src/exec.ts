@@ -3,8 +3,16 @@
  * This code was derived from the auto-generated binding and declaration
  * files provided by napi-rs.
  */
-import process from 'process';
-import path from 'path';
+import process from 'node:process';
+import path from 'node:path';
+import url from 'node:url';
+import Module from 'node:module';
+
+const require = Module.createRequire(import.meta.url);
+const projectPath = path.dirname(
+  path.dirname(url.fileURLToPath(import.meta.url)),
+);
+const prebuildPath = path.join(projectPath, 'prebuild');
 
 interface Exec {
   /**
@@ -25,9 +33,6 @@ interface Exec {
   execvp(cmd: string, argv: Array<string>, envp: Record<string, string>): never;
 }
 
-const projectRoot = path.join(__dirname, '../');
-const prebuildPath = path.join(projectRoot, 'prebuild');
-
 /**
  * Try require on all prebuild targets first, then
  * try require on all npm targets second.
@@ -42,11 +47,21 @@ function requireBinding(targets: Array<string>): Exec {
     } catch (e) {
       if (e.code !== 'MODULE_NOT_FOUND') throw e;
     }
+    try {
+      return require(url.pathToFileURL(prebuildTarget).href);
+    } catch (e) {
+      if (e.code !== 'MODULE_NOT_FOUND') throw e;
+    }
   }
   const npmTargets = targets.map((target) => `@matrixai/exec-${target}`);
   for (const npmTarget of npmTargets) {
     try {
       return require(npmTarget);
+    } catch (e) {
+      if (e.code !== 'MODULE_NOT_FOUND') throw e;
+    }
+    try {
+      return require(url.pathToFileURL(npmTarget).href);
     } catch (e) {
       if (e.code !== 'MODULE_NOT_FOUND') throw e;
     }

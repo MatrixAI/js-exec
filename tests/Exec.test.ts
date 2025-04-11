@@ -1,10 +1,10 @@
-import child_process from 'child_process';
-import { exec } from '@';
+import child_process from 'node:child_process';
+import { exec } from '#index.js';
 
 describe('execvp', () => {
   test('execvp should provide environment variables', async () => {
     // Setting envs to check
-    const output = child_process.execFileSync('./tests/callExecvpe.ts');
+    const output = child_process.execFileSync('./tests/callExecvpe.mjs');
     const jsonOut = JSON.parse(output.toString());
     expect(jsonOut['TEST1']).toBe('value1');
     expect(jsonOut['TEST2']).toBe('value2');

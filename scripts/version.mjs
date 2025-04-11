@@ -13,19 +13,23 @@
  * to prevent `npm` from attempting to download unpublished packages.
  */
 
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
-const childProcess = require('child_process');
-const packageJSON = require('../package.json');
+import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
+import url from 'node:url';
+import childProcess from 'node:child_process';
+import packageJSON from '../package.json' assert { type: 'json' };
 
 const platform = os.platform();
 
+const projectPath = path.dirname(
+  path.dirname(url.fileURLToPath(import.meta.url)),
+);
+
 /* eslint-disable no-console */
 async function main() {
-  const projectRoot = path.join(__dirname, '..');
-  const cargoTOMLPath = path.join(projectRoot, 'Cargo.toml');
-  const cargoLockPath = path.join(projectRoot, 'Cargo.lock');
+  const cargoTOMLPath = path.join(projectPath, 'Cargo.toml');
+  const cargoLockPath = path.join(projectPath, 'Cargo.lock');
 
   console.error('Updating the Cargo.toml version to match new version');
   const cargoTOML = await fs.promises.readFile(cargoTOMLPath, 'utf-8');
@@ -37,7 +41,7 @@ async function main() {
   await fs.promises.writeFile(cargoTOMLPath, cargoTOMLUpdated, 'utf-8');
 
   console.error('Updating the Cargo.lock version to match new version');
-  childProcess.execFileSync('cargo', ['update', '--package', 'exec'], {
+  childProcess.execFileSync('cargo', ['update', '--package', 'quic'], {
     stdio: ['inherit', 'inherit', 'inherit'],
     windowsHide: true,
     encoding: 'utf-8',
