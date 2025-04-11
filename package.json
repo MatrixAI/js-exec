@@ -1,6 +1,6 @@
 {
   "name": "@matrixai/exec",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "author": "Matrix AI",
   "contributors": [
     {
@@ -46,10 +46,10 @@
     "docs": "shx rm -rf ./docs && typedoc --gitRevision master --tsconfig ./tsconfig.build.json --out ./docs src"
   },
   "optionalDependencies": {
-    "@matrixai/exec-darwin-arm64": "0.1.5",
-    "@matrixai/exec-darwin-universal": "0.1.5",
-    "@matrixai/exec-darwin-x64": "0.1.5",
-    "@matrixai/exec-linux-x64": "0.1.5"
+    "@matrixai/exec-darwin-arm64": "1.0.0",
+    "@matrixai/exec-darwin-universal": "1.0.0",
+    "@matrixai/exec-darwin-x64": "1.0.0",
+    "@matrixai/exec-linux-x64": "1.0.0"
   },
   "devDependencies": {
     "@napi-rs/cli": "^2.15.2",
