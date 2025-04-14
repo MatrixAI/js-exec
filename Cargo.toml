@@ -1,6 +1,6 @@
 [package]
 name = "exec"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["Brian Botha <brian.botha@matrix.ai>"]
 license-file = "LICENSE"
 edition = "2021"
