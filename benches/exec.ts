@@ -9,7 +9,7 @@ async function main() {
   const summary = await b.suite(
     path.basename(filePath, path.extname(filePath)),
     b.add('stub', () => {
-      1 + 1;
+      return 1 + 1;
     }),
     ...suiteCommon,
   );
